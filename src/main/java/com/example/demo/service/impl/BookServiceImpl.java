@@ -4,6 +4,7 @@ import com.example.demo.data.model.Book;
 import com.example.demo.data.repository.BookRepository;
 import com.example.demo.service.BookService;
 import com.example.demo.util.exception.NotFoundBook;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findById(id).orElseThrow(() -> new NotFoundBook("This book is not found"));
     }
 
+    @Cacheable("book")
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
